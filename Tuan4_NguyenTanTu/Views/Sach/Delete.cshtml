@@ -1,0 +1,72 @@
+﻿@model Tuan4_NguyenTanTu.Models.Sach
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>XÓA SÁCH</h2>
+
+<h3>Bạn có chắc là muốn xóa cuốn sách này ?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <strong>Mã loại : </strong>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.maloai)
+        </dd>
+        <dt>
+            <strong>Tên sách : </strong>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tensach)
+        </dd>
+
+        <dt>
+           <strong>Hình ảnh : </strong>
+        </dt>
+
+        <dd>
+            <p><img src="@Html.DisplayFor(model => model.hinh)" alt="Hình ảnh" /></p>
+        </dd>
+
+        <dt>
+           <strong>Giá bán : </strong>
+        </dt>
+
+        <dd style="color:green;">
+            @Html.DisplayFor(model => model.giaban) VND
+        </dd>
+
+        <dt>
+            <strong>Ngày cập nhật : </strong>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ngaycapnhat)
+        </dd>
+
+        <dt>
+           <strong>Số lượng tồn : </strong>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.soluongton)
+        </dd>
+
+
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> @Html.ActionLink("Back to List", "ListSach", "Sach", new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

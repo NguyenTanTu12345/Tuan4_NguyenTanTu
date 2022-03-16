@@ -1,0 +1,67 @@
+﻿@model Tuan4_NguyenTanTu.Models.Sach
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CHI TIẾT SÁCH</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <strong>Mã loại : </strong>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.maloai)
+        </dd>
+
+        <dt>
+            <strong>Tên sách : </strong>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tensach)
+        </dd>
+
+        <dt>
+            <strong>Hình ảnh : </strong>
+        </dt>
+        
+        <dd>
+            <p><img src="@Html.DisplayFor(model => model.hinh)" alt="Hình sách" /></p>
+        </dd>
+
+        <dt>
+            <strong>Giá bán : </strong>
+        </dt>
+
+        <dd style="color:green;">
+            @Html.DisplayFor(model => model.giaban) VND
+        </dd>
+
+        <dt>
+            <strong>Ngày cập nhật : </strong>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ngaycapnhat)
+        </dd>
+
+        <dt>
+            <strong>Số lượng tồn : </strong>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.soluongton)
+        </dd>
+
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.masach }, new { @class = "btn btn-primary" })  @Html.ActionLink("Back to List", "ListSach", "Sach", new { @class="btn btn-default"})
+</p>
