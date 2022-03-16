@@ -3,7 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Threading.Tasks;
 using Tuan4_NguyenTanTu.Models;
+using System.Windows;
 
 namespace Tuan4_NguyenTanTu.Controllers
 {
@@ -93,24 +99,21 @@ namespace Tuan4_NguyenTanTu.Controllers
             }
             return RedirectToAction("GioHang");    
         }
-        public ActionResult CapnhatGiohang(int id, FormCollection collection)
+        public ActionResult CapnhatGiohang(int id, System.Web.Mvc.FormCollection collection)
         {
             List<Giohang> lstGiohang = Laygiohang();
             Giohang sanpham = lstGiohang.SingleOrDefault(n => n.masach == id);
-            //Sach sach = data.Saches.SingleOrDefault(p => p.masach == sanpham.masach);
-            //if (sanpham.iSoluong > sach.soluongton)
-            //{
-            //    ViewData["Error"] = "Số lượng đặt đã vượt quá số lượng mua";
-            //    return RedirectToAction("GioHang");
-            //}   
-            //else
-            //{
-                if (sanpham != null)
+            Sach sach = data.Saches.FirstOrDefault(n => n.masach == id);
+            if (sanpham != null)
+            {
+                sanpham.iSoluong = int.Parse(collection["txtSolg"].ToString());
+                if(sanpham.iSoluong > sach.soluongton)
                 {
-                    sanpham.iSoluong = int.Parse(collection["txtSolg"].ToString());
+                    System.Windows.MessageBox.Show("Số lượng sách tồn không đủ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    sanpham.iSoluong = 1;
                 }
-                return RedirectToAction("GioHang");
-            //}    
+            }
+            return RedirectToAction("GioHang");
         }
         public ActionResult XoaTatCaGioHang()
         {
@@ -118,9 +121,25 @@ namespace Tuan4_NguyenTanTu.Controllers
             lstGiohang.Clear();
             return RedirectToAction("GioHang");
         }
-        public ActionResult Index()
+        public ActionResult Dathang()
         {
-            return View();
+            List<Giohang> lstGiohang = Laygiohang();
+            
+            foreach (var item in lstGiohang)
+            {
+                Sach sach = data.Saches.FirstOrDefault(n => n.masach == item.masach);
+                if (sach != null)
+                {
+                    sach.soluongton = sach.soluongton - item.iSoluong;
+                    UpdateModel(sach);
+                    data.SubmitChanges();
+                    
+                    lstGiohang.Clear();
+                    MessageBox.Show("Đặt hàng thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return RedirectToAction("Index", "Home");
+                }    
+            }    
+            return RedirectToAction("Index","Home");
         }
     }
 }
