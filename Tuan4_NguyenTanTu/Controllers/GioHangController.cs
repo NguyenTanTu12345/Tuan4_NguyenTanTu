@@ -109,7 +109,7 @@ namespace Tuan4_NguyenTanTu.Controllers
                 sanpham.iSoluong = int.Parse(collection["txtSolg"].ToString());
                 if(sanpham.iSoluong > sach.soluongton)
                 {
-                    System.Windows.MessageBox.Show("Số lượng sách tồn không đủ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // nếu số lượng đặt lướn hơn số lượng tồn thì nó sẽ trở lại 1
                     sanpham.iSoluong = 1;
                 }
             }
@@ -124,7 +124,6 @@ namespace Tuan4_NguyenTanTu.Controllers
         public ActionResult Dathang()
         {
             List<Giohang> lstGiohang = Laygiohang();
-            
             foreach (var item in lstGiohang)
             {
                 Sach sach = data.Saches.FirstOrDefault(n => n.masach == item.masach);
@@ -133,12 +132,9 @@ namespace Tuan4_NguyenTanTu.Controllers
                     sach.soluongton = sach.soluongton - item.iSoluong;
                     UpdateModel(sach);
                     data.SubmitChanges();
-                    
-                    lstGiohang.Clear();
-                    MessageBox.Show("Đặt hàng thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return RedirectToAction("Index", "Home");
                 }    
-            }    
+            }
+            lstGiohang.Clear();
             return RedirectToAction("Index","Home");
         }
     }
