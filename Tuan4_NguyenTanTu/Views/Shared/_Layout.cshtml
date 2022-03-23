@@ -20,11 +20,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Sach", "ListSach", "Sach")</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.Partial("~/Views/GioHang/GioHangPartial.cshtml")</li>
+                    <li>@Html.ActionLink("Đăng Ký", "DangKy", "NguoiDung")</li>
+                    <li>@Html.ActionLink("Đăng Nhập", "DangNhap", "NguoiDung")</li>
+                    <li><a href="#">Welcome Back, @Session["TenDangNhap"]</a></li>
                 </ul>
             </div>
         </div>
